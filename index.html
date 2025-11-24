@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil mystique</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #2b0a0a 0%, #000000 100%);
+      font-family: 'Georgia', serif;
+      color: #ffffff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #contenu {
+      text-align: center;
+      z-index: 1;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2em;
+      text-shadow: 0 0 10px #ffffff;
+      margin-bottom: 10px;
+    }
+
+    #time {
+      font-size: 3em;
+      text-shadow: 0 0 15px #ffffff;
+      margin-bottom: 10px;
+    }
+
+    #citation-du-jour {
+      font-size: 1.2em;
+      text-shadow: 0 0 8px #ffffff;
+      margin-bottom: 20px;
+    }
+
+    #liens a {
+      display: inline-block;
+      margin: 8px;
+      padding: 8px 16px;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      box-shadow: 0 0 12px rgba(255,255,255,0.05);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+    }
+
+    #liens a:hover {
+      background: rgba(255,255,255,0.15);
+      text-shadow: 0 0 6px #ffffff;
+    }
+
+    #search {
+      margin-top: 20px;
+    }
+
+    #search input {
+      padding: 8px;
+      width: 260px;
+      border-radius: 6px;
+      border: none;
+      background: #000;
+      color: #ffffff;
+    }
+
+    #search button {
+      padding: 8px 16px;
+      margin-left: 8px;
+      border: none;
+      border-radius: 6px;
+      background: #b30000;   /* rouge profond */
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #search button:hover {
+      background: #e60000;   /* rouge vif */
+      text-shadow: 0 0 6px #ffffff;
+    }
+
+    #meteo {
+      margin: 15px auto;
+      padding: 8px 20px;
+      background: rgba(20,20,30,0.6);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      display: inline-block;
+      text-shadow: 0 0 6px #ffffff;
+      font-size: 1em;
+      color: #ffffff;
+    }
+
+    .fog {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      animation: fogMove 40s infinite linear;
+      filter: blur(15px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fogMove {
+      from { transform: translateX(-20%); }
+      to   { transform: translateX(20%); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(white, transparent);
+      animation: shoot 3s linear infinite;
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    .shooting-star:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+    .shooting-star:nth-child(2) { top: 25%; left: 40%; animation-delay: 5s; }
+    .shooting-star:nth-child(3) { top: 5%;  left: 70%; animation-delay: 10s; }
+
+    @keyframes shoot {
+      from { transform: translate(-200px, -200px) rotate(45deg); opacity: 1; }
+      to   { transform: translate(800px, 800px) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="contenu">
+    <h1>Bienvenue, Pierre</h1>
+    <div id="time"></div>
+    <div id="citation-du-jour"></div>
+
+    <div id="liens">
+      <a href="https://www.google.com" target="_blank">Google</a>
+      <a href="https://www.youtube.com" target="_blank">YouTube</a>
+      <a href="https://fr.wikipedia.org" target="_blank">Wikipedia</a>
+      <a href="https://www.lemonde.fr" target="_blank">Le Monde</a>
+    </div>
+
+    <div id="search">
+      <form action="https://www.google.com/search" method="get" target="_blank">
+        <input type="text" name="q" placeholder="Rechercher...">
+        <button type="submit">Chercher</button>
+      </form>
+    </div>
+
+    <div id="meteo">Chargement météo de Clermont-Ferrand...</div>
+  </div>
+
+  <div class="fog"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <script>
+    // Horloge
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("time").textContent =
+        String(now.getHours()).padStart(2, '0') + ":" +
+        String(now.getMinutes()).padStart(2, '0');
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Citation du jour
+    const citations = [
+      "« Il est bien des choses qui ne paraissent impossibles que tant qu’on ne les a pas tentées. » — André Gide",
+      "« Le courage ne rugit pas toujours. Parfois, il murmure à la fin de la journée : je recommencerai demain. » — Mary Anne Radmacher",
+      "« La nuit est plus vivante et plus richement colorée que le jour. » — Vincent Van Gogh",
+      "« Ce n’est pas dans les étoiles qu’est notre destinée, mais en nous-mêmes. » — Shakespeare",
+      "« Même la nuit la plus sombre prendra fin et le soleil se lèvera. » — Victor Hugo",
+      "« Le silence de la nuit est le berceau des pensées profondes. » — Anonyme",
+      "« Les étoiles sont les cicatrices lumineuses du ciel. » — Pierre Reverdy"
+    ];
+    const index = new Date().getDate() % citations.length;
+    document.getElementById("citation-du-jour").textContent = citations[index];
+
+    // Météo dynamique via OpenWeatherMap
+    async function getWeather() {
+      const apiKey = "9a6d46a4272380ead6a727f956dbe5d6";
+      const city = "Clermont-Ferrand";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const temp = Math.round(data.main.temp);
+        const desc = data.weather[0].description;
+        document.getElementById("meteo").textContent =
+          `Sous la lune de ${city} • ${temp}°C • ${desc}`;
+      } catch (e) {
+        document.getElementById("meteo").textContent =
+          "Météo indisponible pour Clermont-Ferrand";
+      }
+    }
+    getWeather();
+  </script>
+</body>
+</html>
+
